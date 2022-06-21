@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branch: [master]
+
+env:
+  TENANT_NAME: disbxt01
+  USER_NAME: ${{secrets.USER_NAME}}
+  PASSWORD: ${{secrets.PASSWORD}}
+
+job:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: download vctl to current directory
+        run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/patrodisbx/gitaction/development/vctl/vctl.exe -Outfile ./vctl.exe
+
+      - name: list all files
+        run: dir
+
+      - name: login to vctl
+        run: .\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com ${TENANT_NAME} ${USER_NAME} -p ${PASSWORD}
+        
