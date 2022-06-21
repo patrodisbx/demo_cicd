@@ -19,6 +19,9 @@ jobs:
       - name: list all files
         run: dir
 
+      - name: Log env
+        run: echo "TENANT : ${TENANT_NAME}   USER: ${USER_NAME}   Pwd: ${PASSWORD}"
+
       - name: login to vctl
         run: .\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com ${TENANT_NAME} ${USER_NAME} -p ${PASSWORD}
         
