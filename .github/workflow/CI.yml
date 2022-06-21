@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branch: [master]
+    branch: [development]
 
 env:
   TENANT_NAME: disbxt01
