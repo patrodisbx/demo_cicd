@@ -18,8 +18,11 @@ jobs:
         run: vctl\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
    
       - name: bundle solution
-        run: vctl solution bundle Kafka_CICD 
+        run: vctl\vctl.exe solution bundle Kafka_CICD 
+
+      - name: list all files post bundle
+        run: dir
 
       - name: upload solution
-        run: vctl solution upload Kafka_CICD.zip
+        run: vctl\vctl.exe solution upload Kafka_CICD.zip
         
