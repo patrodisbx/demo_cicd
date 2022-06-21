@@ -24,5 +24,5 @@ jobs:
         shell: bash
 
       - name: login to vctl
-        run: .\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com ${TENANT_NAME} ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
+        run: .\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com "${TENANT_NAME}" ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
         
