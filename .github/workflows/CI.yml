@@ -15,6 +15,6 @@ jobs:
         run: dir
 
       - name: login to vctl
-        run: .\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
+        run: vctl\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
 
         
