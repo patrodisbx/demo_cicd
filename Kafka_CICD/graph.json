@@ -1,0 +1,129 @@
+{
+    "properties": {},
+    "iconsrc": "kafka.png",
+    "description": "Kafka Generator",
+    "processes": {
+        "20fb": {
+            "component": "com.sap.kafka.producer",
+            "metadata": {
+                "label": "producer (20fb)",
+                "x": 519,
+                "y": 12,
+                "height": 80,
+                "width": 120,
+                "config": {
+                    "topic": "atlas.input.sap.sapdi.0FI_AP_4",
+                    "connectionType": "connection management",
+                    "connection": {
+                        "configurationType": "Configuration Manager",
+                        "connectionID": "MSK"
+                    }
+                }
+            }
+        },
+        "python3operator1": {
+            "component": "com.sap.system.python3Operator",
+            "metadata": {
+                "label": "Python3 Operator",
+                "x": 181,
+                "y": 12,
+                "height": 80,
+                "width": 120,
+                "extensible": true,
+                "filesRequired": [
+                    "https://urldefense.com/v3/__http://script.py__;!!H9nueQsQ!tq0ncEVB5iHCRv_Tcxmbzpmrn-g-4JQpCTTYnuDPrhD-WfVHT29M5EZbbpH51f5P_hU_4KDU-nJuP4iX$ "
+                ],
+                "generation": 1,
+                "config": {
+                    "script": "\ndef on_input(data):\n    counter = data.body.split(\",\")[0]\n    data.attributes['kafka.key'] = counter\n    api.send(\"out\", data)\n\napi.set_port_callback(\"input1\", on_input)"
+                },
+                "additionalinports": [
+                    {
+                        "name": "input1",
+                        "type": "message"
+                    }
+                ],
+                "additionaloutports": [
+                    {
+                        "name": "out",
+                        "type": "message"
+                    }
+                ]
+            }
+        },
+        "wiretap1": {
+            "component": "com.sap.util.wiretap",
+            "metadata": {
+                "label": "Wiretap",
+                "x": 350,
+                "y": 12,
+                "height": 80,
+                "width": 120,
+                "generation": 1,
+                "ui": "dynpath",
+                "config": {}
+            }
+        },
+        "py3datagenerator1": {
+            "component": "com.sap.util.datageneratorpy3",
+            "metadata": {
+                "label": "Py3 Data Generator",
+                "x": 12,
+                "y": 12,
+                "height": 80,
+                "width": 120,
+                "extensible": true,
+                "filesRequired": [
+                    "https://urldefense.com/v3/__http://script.py__;!!H9nueQsQ!tq0ncEVB5iHCRv_Tcxmbzpmrn-g-4JQpCTTYnuDPrhD-WfVHT29M5EZbbpH51f5P_hU_4KDU-nJuP4iX$ "
+                ],
+                "generation": 1,
+                "config": {}
+            }
+        }
+    },
+    "groups": [],
+    "connections": [
+        {
+            "metadata": {
+                "points": "305,52 345,52"
+            },
+            "src": {
+                "port": "out",
+                "process": "python3operator1"
+            },
+            "tgt": {
+                "port": "in",
+                "process": "wiretap1"
+            }
+        },
+        {
+            "metadata": {
+                "points": "474,52 514,52"
+            },
+            "src": {
+                "port": "out",
+                "process": "wiretap1"
+            },
+            "tgt": {
+                "port": "message",
+                "process": "20fb"
+            }
+        },
+        {
+            "metadata": {
+                "points": "136,52 176,52"
+            },
+            "src": {
+                "port": "output",
+                "process": "py3datagenerator1"
+            },
+            "tgt": {
+                "port": "input1",
+                "process": "python3operator1"
+            }
+        }
+    ],
+    "inports": {},
+    "outports": {},
+    "metadata": {}
+}
