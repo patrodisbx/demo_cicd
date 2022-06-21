@@ -1,7 +1,7 @@
 name: CI
 
 on:
-  push:
+  pull_request:
     branch: [development]
 
 jobs:
@@ -19,6 +19,9 @@ jobs:
    
       - name: bundle solution
         run: vctl\vctl.exe solution bundle Kafka_CICD -n "T_Kafka_CICD"
+
+      - name: upload solution
+        run: vctl\vctl.exe solution upload T_Kafka_CICD-1.0.2.zip
 
       - name: list all files post bundle
         run: dir
