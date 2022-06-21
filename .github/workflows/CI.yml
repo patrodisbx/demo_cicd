@@ -1,7 +1,7 @@
 name: CI
 
 on:
-  push:
+  pull_request:
     branch: [development]
 
 env:
@@ -20,7 +20,7 @@ jobs:
         run: dir
 
       - name: Log env
-        run: echo "TENANT : ${TENANT_NAME}   USER: ${USER_NAME}   Pwd: ${PASSWORD}"
+        run: echo ${TENANT_NAME}
         shell: bash
 
       - name: login to vctl
