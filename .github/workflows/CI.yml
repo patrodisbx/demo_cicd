@@ -23,9 +23,6 @@ jobs:
       - name: list all files post bundle
         run: dir
 
-      - name: upload solution
-        run: vctl\vctl.exe solution upload T_Kafka_CICD-1.0.1.zip
-
       - name: Build Strategy
-        run: vctl\vctl.exe strategy add sdi-disbxt01-extension-strategy T_Kafka_CICD-1.0.0.zip
+        run: vctl\vctl.exe strategy add sdi-disbxt01-extension-strategy T_Kafka_CICD-1.0.2.zip
         
