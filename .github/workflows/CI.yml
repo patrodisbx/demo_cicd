@@ -20,8 +20,9 @@ jobs:
         run: dir
 
       - name: Log env
-        run: echo TENANT : ${TENANT_NAME}   USER: ${USER_NAME}   Pwd: ${PASSWORD}
+        run: echo "TENANT : ${TENANT_NAME}   USER: ${USER_NAME}   Pwd: ${PASSWORD}"
+        shell: bash
 
       - name: login to vctl
-        run: .\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com ${TENANT_NAME} ${USER_NAME} -p ${PASSWORD}
+        run: .\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 DIAPIUSR -p DI@apiuser123
         
