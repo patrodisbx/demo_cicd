@@ -8,8 +8,8 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - name: download vctl to current directory
-        run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/patrodisbx/gitaction/development/vctl/vctl.exe -Outfile ./vctl.exe
+      - name: check out repo
+        uses: actions/checkout@v2
 
       - name: list all files
         run: dir
