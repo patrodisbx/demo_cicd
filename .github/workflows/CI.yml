@@ -4,10 +4,6 @@ on:
   pull_request:
     branch: [development]
 
-env:
-  USER_NAME: ${{secrets.USER_NAME}}
-  PASSWORD: ${{secrets.PASSWORD}}
-
 jobs:
   build:
     runs-on: windows-latest
