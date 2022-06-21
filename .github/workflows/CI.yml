@@ -5,7 +5,6 @@ on:
     branch: [development]
 
 env:
-  TENANT_NAME: disbxt01
   USER_NAME: ${{secrets.USER_NAME}}
   PASSWORD: ${{secrets.PASSWORD}}
 
@@ -19,14 +18,7 @@ jobs:
       - name: list all files
         run: dir
 
-      - name: Log env
-        run: echo ${USER_NAME}
-        shell: bash
-
       - name: login to vctl
-        env:
-          mycommand: ".\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com"
-          par: "-p"
-        run: eval ${mycommand} ${TENANT_NAME} ${{secrets.USER_NAME}} ${par} ${{secrets.PASSWORD}}
-        shell: bash
+        run: .\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
+
         
