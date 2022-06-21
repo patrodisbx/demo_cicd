@@ -9,7 +9,7 @@ env:
   USER_NAME: ${{secrets.USER_NAME}}
   PASSWORD: ${{secrets.PASSWORD}}
 
-job:
+jobs:
   build:
     runs-on: windows-latest
     steps:
