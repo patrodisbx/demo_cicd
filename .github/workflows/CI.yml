@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: check out repo
         uses: actions/checkout@v2
@@ -14,7 +14,7 @@ jobs:
       - name: log files changed
         run: |
           echo ${GITHUB_SHA}
-          git diff-tree --no-commit-id --name-only -r ${GITHUB_SHA}
+          git diff-tree --no-commit-id --name-only -r $GITHUB_SHA
         shell: bash
 
       # - name: list all files
