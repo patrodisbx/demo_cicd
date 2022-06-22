@@ -16,8 +16,7 @@ jobs:
         with:
           patterns: |
             !.github
-          files: |
-            !vctl/vctl.exe
+
 
 
       - name: List files  
