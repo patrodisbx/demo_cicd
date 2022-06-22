@@ -26,6 +26,7 @@ jobs:
           i=0
           for file in ${array[*]}
           do
+            echo $file
             if [[ "contains('[".github/workflows/CI.yml","vctl/vctl.exe"]'}, $file)" ]]; then
               echo $i
               i=i+1
