@@ -7,6 +7,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      EXCLUDE_FILE: |
+        (
+          ".github/workflows/CI.yml"
+          "vctl/vctl.exe"
+        )
     steps:
       - name: check out repo
         uses: actions/checkout@v2
@@ -20,9 +26,12 @@ jobs:
       - name: run array
         run: |
           array=(${{env.GIT_DIFF}})
-          for i in ${array[*]}
+          for file in ${array[*]}
           do
-            echo 'Foundn'
+            echo $file
+            if [[ $file in ${EXCLUDE_FILE}]]; then
+              echo 'Excluded'
+            fi
           done
 
       # - name: list all files
