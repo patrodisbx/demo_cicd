@@ -11,8 +11,9 @@ jobs:
       - name: check out repo
         uses: actions/checkout@v2
 
-      - name: log files changed
-        run: git diff --name-only origin/development origin/$GITHUB_SHA
+      - name: Get Diff Action
+        uses: technote-space/get-diff-action@v4.0.1
+        run: echo '${{ env.GIT_DIFF }}'
 
       # - name: list all files
       #   run: dir
