@@ -20,13 +20,15 @@ jobs:
         run: echo '${{ env.GIT_DIFF }}'
 
       - name: Create solution structure
+        id: run_replace
         uses: frabert/replace-string-action@v2.0
         with:
           pattern: 'graph.json'
           string: ${{ env.GIT_DIFF }}
           replace-with: '/new/graph.json'
-          replaced: env.op
-
+          
+      - name: print output
+        run: echo '${{steps.run_replace.outputs.replaced}}'
 
       # - name: run array
       #   run: |
