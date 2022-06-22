@@ -33,7 +33,7 @@ jobs:
           do
             for exc_file in ${array_exc[*]}
             do 
-              if [[ $file != $exc_file]]; then  
+              if [[ "$file" != "$exc_file" ]]; then  
                 array_req+='$file'
                 array_req+= ' '
               fi
