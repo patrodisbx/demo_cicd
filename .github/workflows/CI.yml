@@ -7,8 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      EXCLUDE_FILE: [".github/workflows/CI.yml","vctl/vctl.exe"]
+
     steps:
       - name: check out repo
         uses: actions/checkout@v2
