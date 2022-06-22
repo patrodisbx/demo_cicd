@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: log files changed
-        run: git diff-tree --no-commit-id --name-only -r $GITHUB_SHA
+        run: git diff-tree --no-commit-id --name-only -r 9094d3d93bc9f92979448e54731f39376268c86c
 
       # - name: list all files
       #   run: dir
