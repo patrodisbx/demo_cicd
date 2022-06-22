@@ -31,12 +31,9 @@ jobs:
           i=0
           for file in ${array[*]}
           do
-            for exc_file in ${array_exc[*]}
-            do 
-              if [[ "$file" != "$exc_file" ]]; then  
-                array_req+=('$file')
-              fi
-            done
+            if [[ "contains(${array_exc}, $file)" ]]; then
+              echo $i
+              i=i+1
           done
           for file in ${array_req[*]}
           do
