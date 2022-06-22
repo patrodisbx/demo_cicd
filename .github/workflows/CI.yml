@@ -22,7 +22,7 @@ jobs:
           array=(${{env.GIT_DIFF}})
           for i in ${array[*]}
           do
-            echo 'Found'
+            echo 'Foundn'
           done
 
       # - name: list all files
