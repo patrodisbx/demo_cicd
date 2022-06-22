@@ -15,7 +15,7 @@ jobs:
         uses: technote-space/get-diff-action@v4.0.1
         with:
           PATTERNS: |
-            !.github/workflows/CI.yml
+            !CI.yml
 
 
 
