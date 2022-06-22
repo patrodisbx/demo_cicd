@@ -34,6 +34,7 @@ jobs:
             if [[ "contains(${array_exc}, $file)" ]]; then
               echo $i
               i=i+1
+            fi
           done
           for file in ${array_req[*]}
           do
