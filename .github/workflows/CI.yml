@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branch: [development]
+    branch: [feature1]
 
 jobs:
   build:
