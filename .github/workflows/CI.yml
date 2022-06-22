@@ -8,11 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      EXCLUDE_FILE: |
-        (
-          ".github/workflows/CI.yml"
-          "vctl/vctl.exe"
-        )
+      EXCLUDE_FILE: [".github/workflows/CI.yml","vctl/vctl.exe"]
     steps:
       - name: check out repo
         uses: actions/checkout@v2
@@ -31,7 +27,7 @@ jobs:
           i=0
           for file in ${array[*]}
           do
-            if [[ "contains(${array_exc}, $file)" ]]; then
+            if [[ "contains('[".github/workflows/CI.yml","vctl/vctl.exe"]'}, $file)" ]]; then
               echo $i
               i=i+1
             fi
