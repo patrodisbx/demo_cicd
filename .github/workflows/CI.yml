@@ -12,10 +12,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: log files changed
-        run: |
-          echo ${GITHUB_SHA}
-          git diff-tree --no-commit-id --name-only -r $GITHUB_SHA
-        shell: bash
+        run: git diff-tree --no-commit-id --name-only -r $GITHUB_SHA
 
       # - name: list all files
       #   run: dir
