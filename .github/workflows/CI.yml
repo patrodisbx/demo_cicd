@@ -26,15 +26,18 @@ jobs:
       - name: run array
         run: |
           array=(${{env.GIT_DIFF}})
+          array_exc=(${EXCLUDE_FILE})
           array_req=()
           i=0
           for file in ${array[*]}
           do
-            if [[ "!contains(${EXCLUDE_FILE}, $file)" ]]; then
-              echo $i
-              array_req+=$file
-              i+=1
-            fi
+            for exc_file in ${array_exc[*]}
+            do 
+              if [[ $file != $exc_file]]; then  
+                array_req+='$file'
+                array_req+= ' '
+              fi
+            done
           done
           for file in ${array_req[*]}
           do
