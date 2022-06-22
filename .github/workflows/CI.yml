@@ -13,11 +13,6 @@ jobs:
 
       - name: Get Diff Action
         uses: technote-space/get-diff-action@v4.0.1
-        with:
-          PATTERNS: |
-            !CI.yml
-
-
 
       - name: List files  
         run: echo '${{ env.GIT_DIFF }}'
