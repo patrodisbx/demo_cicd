@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: log files changed
-        run: git diff --name-only 
+        run: git diff --name-only origin/development origin/$GITHUB_SHA
 
       # - name: list all files
       #   run: dir
