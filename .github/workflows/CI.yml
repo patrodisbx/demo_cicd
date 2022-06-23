@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{steps.list_file.outputs.value}}
-
+      
     steps:
       - name: check out repo
         uses: actions/checkout@v2
@@ -30,10 +30,11 @@ jobs:
     strategy: 
       matrix: 
         value: ${{fromJson(needs.setup.outputs.matrix)}}
-    
+        exclude:
+          - value: .github/workflows/CI.yml
     steps:
       - name: Log file name
-        if: $matrix.value != '.github/workflows/CI.yml'
+        # if: $matrix.value != '.github/workflows/CI.yml'
         run: echo ${{matrix.value}}
 
       # - name: Create solution structure
