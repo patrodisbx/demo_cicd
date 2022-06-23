@@ -16,21 +16,23 @@ jobs:
 
       - name: Get Diff Action
         uses: technote-space/get-diff-action@v6
+        with:
+         format: JSON
 
       - name: List files  
         id: list_file
         run: echo '(${{ env.GIT_DIFF }})'
 
-  build:
-    needs: [setup]
-    runs-on: ubuntu-latest
-    strategy: 
-      matrix: 
-        value: ${{needs.setup.outputs.matrix}}
+  # build:
+  #   needs: [setup]
+  #   runs-on: ubuntu-latest
+  #   strategy: 
+  #     matrix: 
+  #       value: ${{needs.setup.outputs.matrix}}
     
-    steps:
-      - name: Log file names
-        run: echo ${{matrix.value}}
+  #   steps:
+  #     - name: Log file names
+  #       run: echo ${{matrix.value}}
 
       # - name: Create solution structure
       #   id: run_replace
