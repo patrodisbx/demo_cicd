@@ -32,9 +32,11 @@ jobs:
         value: ${{fromJson(needs.setup.outputs.matrix)}}
         exclude:
           - value: .github/workflows/CI.yml
+          - value: vctl/vctl.exe
+          - value: '**manifest.json'
     steps:
-      - name: Log file name
-        run: echo ${{matrix.value}}
+      - name: Log Graph names
+        run: echo '${{ matrix.value}} | cut -d "/" -f 1'
 
       # - name: Create solution structure
       #   id: run_replace
