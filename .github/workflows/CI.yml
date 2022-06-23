@@ -34,7 +34,6 @@ jobs:
           - value: .github/workflows/CI.yml
     steps:
       - name: Log file name
-        # if: $matrix.value != '.github/workflows/CI.yml'
         run: echo ${{matrix.value}}
 
       # - name: Create solution structure
