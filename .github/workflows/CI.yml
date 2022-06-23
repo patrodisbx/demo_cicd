@@ -50,10 +50,7 @@ jobs:
         run: vctl\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
    
       - name: bundle solution
-        env: 
-          obj: "${{ steps.obj_name.outputs.* }}"
-        run: |
-          echo ${obj}
+        run: echo ${{ steps.obj_name.outputs.* }}
 
       - name: List files
         run: dir
