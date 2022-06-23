@@ -33,14 +33,15 @@ jobs:
         exclude:
           - value: .github/workflows/CI.yml
           - value: vctl/vctl.exe
-          - value: **manifest.json
-    # if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+    
     steps:
       - name: Log Graph names
+        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
         id: obj_name
         run: echo ${{ matrix.value}} | cut -d "/" -f 1
   
       - name: login to vctl
+        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
         run: vctl\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
    
       # - name: bundle solution
