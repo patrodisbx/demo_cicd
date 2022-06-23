@@ -41,7 +41,7 @@ jobs:
       - name: Log Graph names
         if: ${{ !endsWith(matrix.value, 'manifest.json') }}
         id: obj_name
-        run: echo ${{ matrix.value }} | cut -d "/" -f 1
+        run: echo '::set-output name=obj::$(${{ matrix.value }} | cut -d "/" -f 1)'
   
       - name: login to vctl
         if: ${{ !endsWith(matrix.value, 'manifest.json') }}
@@ -49,7 +49,7 @@ jobs:
    
       - name: bundle solution
         env: 
-          obj: "${{ steps.obj_name.outputs.stdout }}"
+          obj: "${{ steps.obj_name.outputs.obj }}"
         run: |
           echo ${obj}
 
