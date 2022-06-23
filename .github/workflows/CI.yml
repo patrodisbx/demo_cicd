@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy: 
       matrix: 
-        value: ${{needs.setup.outputs.matrix}}
+        value: ${{fromJson(needs.setup.outputs.matrix)}}
     
     steps:
       - name: Log file names
