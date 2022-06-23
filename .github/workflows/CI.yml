@@ -11,8 +11,8 @@ jobs:
       matrix: ${{steps.list_file.outputs.value}}
       
     steps:
-      # - name: check out repo
-      #   uses: actions/checkout@v2
+      - name: check out repo
+        uses: actions/checkout@v2
 
       - name: Get Diff Action
         uses: technote-space/get-diff-action@v6
@@ -37,7 +37,7 @@ jobs:
     steps:
       - name: check out repo
         uses: actions/checkout@v2
-        
+
       - name: Log Graph names
         if: ${{ !endsWith(matrix.value, 'manifest.json') }}
         id: obj_name
