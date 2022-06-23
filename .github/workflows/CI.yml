@@ -32,7 +32,7 @@ jobs:
         value: ${{fromJson(needs.setup.outputs.matrix)}}
     
     steps:
-      - name: Log file names
+      - name: Log file name
         run: echo ${{matrix.value}}
 
       # - name: Create solution structure
