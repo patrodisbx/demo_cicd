@@ -41,14 +41,17 @@ jobs:
       - name: Log Graph names
         if: ${{ !endsWith(matrix.value, 'manifest.json') }}
         id: obj_name
-        run: echo ${{ matrix.value}} | cut -d "/" -f 1
+        run: echo '::set-output name=value::${{ matrix.value}} | cut -d "/" -f 1'
   
       - name: login to vctl
         if: ${{ !endsWith(matrix.value, 'manifest.json') }}
         run: vctl\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
    
-      # - name: bundle solution
-      #   run: vctl\vctl.exe solution bundle Kafka_CICD -n "T_Kafka_CICD"
+      - name: bundle solution
+        run: vctl\vctl.exe solution bundle ${{steps.obj_name.outputs.value}} 
+
+      - name: List files
+        run: dir
 
       # - name: Create solution structure
       #   id: run_replace
