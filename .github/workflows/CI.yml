@@ -21,18 +21,18 @@ jobs:
 
       - name: List files  
         id: list_file
-        run: echo '(${{ env.GIT_DIFF }})'
+        run: echo '${{ env.GIT_DIFF }}'
 
-  # build:
-  #   needs: [setup]
-  #   runs-on: ubuntu-latest
-  #   strategy: 
-  #     matrix: 
-  #       value: ${{needs.setup.outputs.matrix}}
+  build:
+    needs: [setup]
+    runs-on: ubuntu-latest
+    strategy: 
+      matrix: 
+        value: ${{fromJson(needs.setup.outputs.matrix)}}
     
-  #   steps:
-  #     - name: Log file names
-  #       run: echo ${{matrix.value}}
+    steps:
+      - name: Log file names
+        run: echo ${{matrix.value}}
 
       # - name: Create solution structure
       #   id: run_replace
