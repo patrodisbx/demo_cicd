@@ -43,7 +43,7 @@ jobs:
         id: obj_name
         run: |
           cmd=$(echo ${{ matrix.value }} | cut -d "/" -f 1)
-          echo "$cmd"
+          echo '::set-output name=obj::$cmd'
         shell: bash
   
       - name: login to vctl
