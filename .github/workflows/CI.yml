@@ -50,7 +50,9 @@ jobs:
       - name: bundle solution
         env: 
           obj: "${{ steps.obj_name.outputs.stdout }}"
-        run: vctl\vctl.exe solution bundle $env.obj 
+        run: |
+          echo $obj
+          eval 'vctl\vctl.exe solution bundle ${obj}' 
 
       - name: List files
         run: dir
