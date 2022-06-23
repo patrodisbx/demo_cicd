@@ -17,7 +17,7 @@ jobs:
       - name: Get Diff Action
         uses: technote-space/get-diff-action@v6
         with:
-          pattern:
+          PATTERNS:
             '**.json'
           format: JSON
 
