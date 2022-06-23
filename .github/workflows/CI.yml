@@ -36,7 +36,8 @@ jobs:
           - value: '**manifest.json'
     steps:
       - name: Log Graph names
-        run: echo '${{ matrix.value}} | cut -d "/" -f 1'
+        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        run: echo ${{ matrix.value}} | cut -d "/" -f 1
 
       # - name: Create solution structure
       #   id: run_replace
