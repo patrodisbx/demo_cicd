@@ -17,7 +17,9 @@ jobs:
       - name: Get Diff Action
         uses: technote-space/get-diff-action@v6
         with:
-         format: JSON
+          pattern:
+            '**.json'
+          format: JSON
 
       - name: List files  
         id: list_file
