@@ -42,7 +42,7 @@ jobs:
         if: ${{ !endsWith(matrix.value, 'manifest.json') }}
         id: obj_name
         run: |
-          mycmd=$(${{ matrix.value }} | cut -d "/" -f 1)
+          mycmd=$(echo ${{ matrix.value }} | cut -d "/" -f 1)
           echo $mycmd
         shell: bash
   
