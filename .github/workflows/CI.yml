@@ -53,13 +53,11 @@ jobs:
 
       - name: List zip file
         run: |
-          ls
-          ls | sed -n 's/\.zip$//p'
           echo "zip_name=$(ls | sed -n 's/\.zip$//p')" >> $GITHUB_ENV
         shell: bash
 
       - name: upload solution
-        run: vctl\vctl.exe solution upload ${{env.zip_name}}
+        run: vctl\vctl.exe solution upload ${{env.zip_name}}.zip
 
       - name: Add to Strategy
         run: vctl\vctl.exe strategy add sdi-disbxt01-extension-strategy ${{env.zip_name}}
