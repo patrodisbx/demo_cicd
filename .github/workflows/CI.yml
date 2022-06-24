@@ -55,6 +55,14 @@ jobs:
         run: |
           echo "zip_name=$(ls | sed -n 's/\.zip$//p')" >> $GITHUB_ENV
         shell: bash
+      
+      - name: Remove same existing solution from Strategy if any
+        id: remove_strategy
+        run: vctl\vctl.exe strategy remove sdi-disbxt01-extension-strategy ${{env.zip_name}}
+
+      - name: Delete same existing solution if any
+        if: steps.remove_strategy.outcome == 'success'
+        run: vctl\vctl.exe solution delete $(echo ${{env.zip_name}} | cut -d "-" -f 1) $(echo ${{env.zip_name}} | cut -d "-" -f 2)
 
       - name: upload solution
         run: vctl\vctl.exe solution upload ${{env.zip_name}}.zip
