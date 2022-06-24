@@ -68,7 +68,7 @@ jobs:
           array=$(cat ./input.json | jq '.layers')
           jq '.layers' ./input.json | while read i; do
             echo "$i"
-            if [[ $i == '[' ]]; then
+            if [[ "abc" == "abc" ]]; then
               echo 'Found'
             fi
           done
