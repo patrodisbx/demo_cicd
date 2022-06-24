@@ -52,22 +52,26 @@ jobs:
         run: vctl\vctl.exe solution bundle ${{env.obj_name}}
 
       - name: List zip file
+        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
         run: |
           echo "zip_name=$(ls | sed -n 's/\.zip$//p')" >> $GITHUB_ENV
         shell: bash
       
       - name: Remove same existing solution from Strategy if any
         id: remove_strategy
+        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
         run: vctl\vctl.exe strategy remove sdi-disbxt01-extension-strategy ${{env.zip_name}}
 
       - name: Delete same existing solution if any
-        if: steps.remove_strategy.outcome == 'success'
+        if: steps.remove_strategy.outcome == 'success' && ${{ !endsWith(matrix.value, 'manifest.json') }}
         run: vctl\vctl.exe solution delete $(echo ${{env.zip_name}} | cut -d "-" -f 1) $(echo ${{env.zip_name}} | cut -d "-" -f 2)
 
       - name: upload solution
+        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
         run: vctl\vctl.exe solution upload ${{env.zip_name}}.zip
 
       - name: Add to Strategy
+        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
         run: vctl\vctl.exe strategy add sdi-disbxt01-extension-strategy ${{env.zip_name}}
 
       # - name: Create solution structure
