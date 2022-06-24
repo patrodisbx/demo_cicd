@@ -52,7 +52,13 @@ jobs:
         run: vctl\vctl.exe solution bundle ${{env.obj_name}}
 
       - name: List zip file
-        run: ls *.zip
+        run: echo "zip_name=$(ls | sed -n 's/\.zip$//p')" >> $GITHUB_ENV
+
+      - name: upload solution
+        run: vctl\vctl.exe solution upload ${{env.zip_name}}
+
+      - name: Add to Strategy
+        run: vctl\vctl.exe strategy add sdi-disbxt01-extension-strategy ${{env.zip_name}}
 
       # - name: Create solution structure
       #   id: run_replace
