@@ -66,7 +66,10 @@ jobs:
       - name: Read the file
         run: |
           array=$(cat ./input.json | jq '.layers')
-          echo "${array[*]}"
+          for i in ${array[*]}
+          do 
+            echo '$i'
+          done
         shell: bash
       # - name: Delete same existing solution if any
       #   if: steps.remove_strategy.outcome == 'success' && ${{ !endsWith(matrix.value, 'manifest.json') }}
