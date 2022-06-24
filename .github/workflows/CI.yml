@@ -60,7 +60,7 @@ jobs:
       - name: Remove same existing solution from Strategy if any
         id: remove_strategy
         if: ${{ !endsWith(matrix.value, 'manifest.json') }}
-        run: vctl\vctl.exe strategy get sdi-disbxt01-extension-strategy
+        run: vctl\vctl.exe strategy get sdi-disbxt01-extension-strategy -o "JSON"
 
       # - name: Delete same existing solution if any
       #   if: steps.remove_strategy.outcome == 'success' && ${{ !endsWith(matrix.value, 'manifest.json') }}
