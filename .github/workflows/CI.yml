@@ -52,7 +52,11 @@ jobs:
         run: vctl\vctl.exe solution bundle ${{env.obj_name}}
 
       - name: List zip file
-        run: echo "zip_name=$(ls | sed -n 's/\.zip$//p')" >> $GITHUB_ENV
+        run: |
+          ls
+          ls | sed -n 's/\.zip$//p'
+          echo "zip_name=$(ls | sed -n 's/\.zip$//p')" >> $GITHUB_ENV
+        shell: bash
 
       - name: upload solution
         run: vctl\vctl.exe solution upload ${{env.zip_name}}
