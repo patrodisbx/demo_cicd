@@ -68,6 +68,7 @@ jobs:
           array=$(cat ./input.json | jq '.layers')
           jq '.layers' ./input.json | while read i; do
             val=$(echo $i | cut -d "," -f 1)
+            echo "$val"
             if [[ $val == "${{env.zip_name}}" ]]; then
               echo 'Found'
             fi
