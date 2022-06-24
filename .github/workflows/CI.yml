@@ -65,8 +65,8 @@ jobs:
       
       - name: Read the file
         run: |
-          cat ./input.json | jq '.layers'[0]
-          echo '${rs}'
+          array=$(cat ./input.json | jq '.layers'[*])
+          echo '${{array[*]}}'
         shell: bash
       # - name: Delete same existing solution if any
       #   if: steps.remove_strategy.outcome == 'success' && ${{ !endsWith(matrix.value, 'manifest.json') }}
