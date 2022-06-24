@@ -65,7 +65,7 @@ jobs:
       
       - name: Read the file
         run: |
-          array=$(cat ./input.json | jq '.layers'[*])
+          array=$(cat ./input.json | jq '.layers')
           echo "${array[*]}"
         shell: bash
       # - name: Delete same existing solution if any
