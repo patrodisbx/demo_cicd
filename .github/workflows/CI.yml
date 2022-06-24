@@ -66,13 +66,9 @@ jobs:
       - name: Read the file
         run: |
           array=$(cat ./input.json | jq '.layers')
-          jq '.layers' ./input.json | while read i; do
-            val=$(echo $i | cut -d "," -f 1)
-            echo "$val"
-            if [[ startsWith($val,${{env.zip_name}}) ]]; then
-              echo 'Found'
-            fi
-          done
+          if printf '%s\0' "${array[@]}" | grep -Fxqz "${{env.zip_name}}"; then
+            echo 'found'
+          fi
         shell: bash
 
       # - name: Delete same existing solution if any
