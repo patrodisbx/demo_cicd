@@ -68,8 +68,11 @@ jobs:
           array=$(cat ./input.json | jq '.layers')
           for i in ${array[*]}
           do 
-            echo $i
+            if [[ $i == ${{env.zip_name}} ]]; then
+              flag=true
+            fi
           done
+          echo "${flag}"
         shell: bash
       # - name: Delete same existing solution if any
       #   if: steps.remove_strategy.outcome == 'success' && ${{ !endsWith(matrix.value, 'manifest.json') }}
