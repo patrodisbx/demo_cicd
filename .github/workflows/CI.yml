@@ -67,7 +67,7 @@ jobs:
         run: |
           array=$(cat ./input.json | jq '.layers')
           jq '.layers' ./input.json | while read i; do
-            sed "s/,/$i"
+            sed -e "s/,/$i"
             if [[ "abc" == "a9bc" ]]; then
               echo 'Found'
             fi
