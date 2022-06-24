@@ -67,8 +67,8 @@ jobs:
         run: |
           array=$(cat ./input.json | jq '.layers')
           jq '.layers' ./input.json | while read i; do
-            if [ "$i" == "${{env.zip_name}}" ]; then
-             echo 'Found'
+            if [[ "$i" == "${{env.zip_name}}" ]]; then
+              echo 'Found'
             fi
           done
         shell: bash
