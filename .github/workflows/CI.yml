@@ -66,15 +66,9 @@ jobs:
       - name: Read the file
         run: |
           array=$(cat ./input.json | jq '.layers')
-          for i in ${array[*]}
-          do 
-            if [[ $i == ${{env.zip_name}} ]]; then
-              flag=true
-            fi
-          done
-          echo "${flag}"
+          contains(${{array}},$${{env.zip_name}})
         shell: bash
-        
+
       # - name: Delete same existing solution if any
       #   if: steps.remove_strategy.outcome == 'success' && ${{ !endsWith(matrix.value, 'manifest.json') }}
       #   run: vctl\vctl.exe solution delete $(echo ${{env.zip_name}} | cut -d "-" -f 1) $(echo ${{env.zip_name}} | cut -d "-" -f 2)
