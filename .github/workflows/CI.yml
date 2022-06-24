@@ -42,7 +42,8 @@ jobs:
         if: ${{ !endsWith(matrix.value, 'manifest.json') }}
         id: obj_name
         run: |
-          echo ${{ matrix.value }} | cut -d "/" -f 1
+          mycmd=$(${{ matrix.value }} | cut -d "/" -f 1)
+          echo $mycmd
         shell: bash
   
       - name: login to vctl
