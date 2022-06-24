@@ -64,7 +64,12 @@ jobs:
           vctl\vctl.exe strategy get sdi-disbxt01-extension-strategy -o "json" | Out-File ./input.json
       
       - name: Read the file
-        run: jq '.layers' ./input.json
+        run: |
+          rs=$(jq '.layers' ./input.json)
+          for i in ${rs[*]}
+          do 
+            echo 'found'
+          done
         shell: bash
       # - name: Delete same existing solution if any
       #   if: steps.remove_strategy.outcome == 'success' && ${{ !endsWith(matrix.value, 'manifest.json') }}
