@@ -65,8 +65,7 @@ jobs:
       
       - name: Read the file
         run: |
-          rs=$(jq '.layers' ./input.json)
-          array=
+          rs=$(cat ./input.json | jq '.layers')
           echo '${rs}'
         shell: bash
       # - name: Delete same existing solution if any
