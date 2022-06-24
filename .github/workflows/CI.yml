@@ -68,7 +68,7 @@ jobs:
           array=$(cat ./input.json | jq '.layers')
           for i in ${array[*]}
           do 
-            echo '$i'
+            echo $i
           done
         shell: bash
       # - name: Delete same existing solution if any
