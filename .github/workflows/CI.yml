@@ -61,9 +61,11 @@ jobs:
         id: remove_strategy
         if: ${{ !endsWith(matrix.value, 'manifest.json') }}
         run: |
-          op=$(vctl\vctl.exe strategy get sdi-disbxt01-extension-strategy -o "json")
-          jq '.[] | .layers' $op
-
+          vctl\vctl.exe strategy get sdi-disbxt01-extension-strategy -o "json" | Out-File ./input.json
+      
+      - name: Read the file
+        run: cat input.json | jq '.'
+        shell: bash
       # - name: Delete same existing solution if any
       #   if: steps.remove_strategy.outcome == 'success' && ${{ !endsWith(matrix.value, 'manifest.json') }}
       #   run: vctl\vctl.exe solution delete $(echo ${{env.zip_name}} | cut -d "-" -f 1) $(echo ${{env.zip_name}} | cut -d "-" -f 2)
