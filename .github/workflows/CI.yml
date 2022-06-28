@@ -70,7 +70,7 @@ jobs:
           for obj in ${obj_arr[*]}
           do
             if [[ $obj ==  ${{env.zip_name}} ]]; then
-              echo 'flag=$(echo "YES") >> $GITHUB_ENV
+              echo "flag=$(echo "YES")" >> $GITHUB_ENV
             fi
           done
         shell: bash
