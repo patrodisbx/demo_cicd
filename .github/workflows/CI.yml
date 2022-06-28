@@ -69,8 +69,8 @@ jobs:
           obj_arr=$(echo $jarray | jq -c -r '.[]')
           for obj in ${obj_arr[*]}
           do
-            echo $obj
-            if [ $obj ==  ${{env.zip_name}} ] 
+            echo ${{obj}}
+            if [ "${{obj}}" ==  "${{env.zip_name}}" ] 
             then
               echo "flag=$(echo "YES")" >> $GITHUB_ENV
               echo "FOund"
