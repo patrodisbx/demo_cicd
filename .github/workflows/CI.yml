@@ -71,6 +71,7 @@ jobs:
           do
             if [[ $obj ==  ${{env.zip_name}} ]]; then
               echo 'found'
+            fi
           done
         shell: bash
 
