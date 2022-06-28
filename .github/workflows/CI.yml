@@ -69,14 +69,16 @@ jobs:
           jarray=$(cat ./input.json | jq '.layers')
           obj_arr=$(echo $jarray | jq -c -r '.[]')
           echo "sol_exist_flag=$(echo "NO")" >> $GITHUB_ENV
+          flag=0
           for obj in ${obj_arr[*]}
           do
             val=$(echo $obj)
             if [ "$val" = "${{env.zip_name}}" ]; then
               echo "sol_exist_flag=$(echo "YES")" >> $GITHUB_ENV
+              flag=1
             fi
           done
-          if [ env.sol_exist_flag = 'YES' ]; then
+          if [ $flag -eq 1 ]; then
             echo "This solution ${{env.zip_name}} version already exists in strategy."
           else 
             echo "This solution ${{env.zip_name}} version doesn't exists in strategy."
