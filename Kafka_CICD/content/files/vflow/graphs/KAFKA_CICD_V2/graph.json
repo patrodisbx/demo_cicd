@@ -21,6 +21,7 @@
                 }
             }
         },
+        
         "python3operator1": {
             "component": "com.sap.system.python3Operator",
             "metadata": {
