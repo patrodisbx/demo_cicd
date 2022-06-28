@@ -80,8 +80,8 @@ jobs:
 
       - name: Delete same existing solution if any
         if: ${{env.sol_exist_flag}} == "YES" && ${{ !endsWith(matrix.value, 'manifest.json') }}
-        run: |
-          dir
+        run: pwd
+        shell: bash
           
 
       # - name: upload solution
