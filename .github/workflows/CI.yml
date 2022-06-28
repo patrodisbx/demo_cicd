@@ -79,7 +79,7 @@ jobs:
         shell: bash
 
       - name: Delete same existing solution if any
-        if: ${{env.sol_exist_flag}} == "YES" && ${{ !endsWith(matrix.value, 'manifest.json') }}
+        if: ${{ env.sol_exist_flag == "YES" && !endsWith(matrix.value, 'manifest.json') }}
         run: pwd
         shell: bash
           
