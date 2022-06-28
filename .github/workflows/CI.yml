@@ -69,7 +69,8 @@ jobs:
           obj_arr=$(echo $jarray | jq -c -r '.[]')
           for obj in ${obj_arr[*]}
           do
-            echo $obj
+            if [[ $obj ==  ${{env.zip_name}} ]]; then
+              echo 'found'
           done
         shell: bash
 
