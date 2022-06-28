@@ -65,10 +65,12 @@ jobs:
       
       - name: Read the file
         run: |
-          array=$(cat ./input.json | jq '.layers')
-          if printf '%s\0' "${array[@]}" | grep -Fxqz "${{env.zip_name}}"; then
-            echo 'found'
-          fi
+          jarray=$(cat ./input.json | jq '.layers')
+          obj_arr=$(echo $jarray | jq -c -r '.[]')
+          for obj in ${obj_arr[*]}
+          do
+            echo $obj
+          done
         shell: bash
 
       # - name: Delete same existing solution if any
