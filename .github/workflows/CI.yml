@@ -70,22 +70,21 @@ jobs:
           for obj in ${obj_arr[*]}
           do
             val=$(echo $obj)
-            if [ "$val" = "${{env.zip_name}}" ] 
-            then
-              echo "flag=$(echo "YES")" >> $GITHUB_ENV
+            if [ "$val" = "${{env.zip_name}}" ]; then
+              echo "sol_exist_flag=$(echo "YES")" >> $GITHUB_ENV
               echo "FOund"
             fi
           done
         shell: bash
 
-      - name: Test
-        run: dir
-
-      # - name: Delete same existing solution if any
-      #   if: steps.remove_strategy.outcome == 'success' && ${{ !endsWith(matrix.value, 'manifest.json') }}
-      #   run: vctl\vctl.exe solution delete $(echo ${{env.zip_name}} | cut -d "-" -f 1) $(echo ${{env.zip_name}} | cut -d "-" -f 2)
+      - name: Delete same existing solution if any
+        if: env.sol_exist_flag == "YES" && ${{ !endsWith(matrix.value, 'manifest.json') }}
+        run: |
+          dir
+          
 
       # - name: upload solution
+      # vctl\vctl.exe solution delete $(echo ${{env.zip_name}} | cut -d "-" -f 1) $(echo ${{env.zip_name}} | cut -d "-" -f 2)
       #   if: ${{ !endsWith(matrix.value, 'manifest.json') }} && steps.remove_strategy.outcome == ('success', 'failure')
       #   run: vctl\vctl.exe solution upload ${{env.zip_name}}.zip
 
