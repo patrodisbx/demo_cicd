@@ -69,6 +69,7 @@ jobs:
           obj_arr=$(echo $jarray | jq -c -r '.[]')
           for obj in ${obj_arr[*]}
           do
+            echo "sol_exist_flag=$(echo "NO")" >> $GITHUB_ENV
             val=$(echo $obj)
             if [ "$val" = "${{env.zip_name}}" ]; then
               echo "sol_exist_flag=$(echo "YES")" >> $GITHUB_ENV
