@@ -61,7 +61,7 @@ jobs:
           if [[ -n $result ]]; then
             mkdir -p ${{env.new_folder}}/launchConfigs
             mv -f ./${{ matrix.value }} ./${{env.new_folder}}
-            mv -f ./${{ matrix.value }}/launchConfigs/* ./${{env.new_folder}}/launchConfigs
+            mv -f ./${{ env.obj_name }}/launchConfigs/* ./${{env.new_folder}}/launchConfigs
           else 
             mkdir -p ${{env.new_folder}}
             mv -f ./${{ matrix.value }} ./${{env.new_folder}}
