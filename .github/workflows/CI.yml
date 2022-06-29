@@ -60,58 +60,58 @@ jobs:
           ls -al
         shell: bash
    
-      # - name: Bundle the solution into zip file in current working directory
-      #   if: ${{ !endsWith(matrix.value, 'manifest.json') }}
-      #   run: vctl\vctl.exe solution bundle ${{env.obj_name}}
+      - name: Bundle the solution into zip file in current working directory
+        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        run: vctl\vctl.exe solution bundle ${{env.obj_name}}
 
-      # - name: Capture the solution version post bundle
-      #   if: ${{ !endsWith(matrix.value, 'manifest.json') }}
-      #   run: |
-      #     echo "zip_name=$(ls | sed -n 's/\.zip$//p')" >> $GITHUB_ENV
-      #   shell: bash
+      - name: Capture the solution version post bundle
+        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        run: |
+          echo "zip_name=$(ls | sed -n 's/\.zip$//p')" >> $GITHUB_ENV
+        shell: bash
       
-      # - name: Get list of solutions from the strategy 
-      #   if: ${{ !endsWith(matrix.value, 'manifest.json') }}
-      #   run: |
-      #     vctl\vctl.exe strategy get sdi-disbxt01-extension-strategy -o "json" | Out-File ./input.json
+      - name: Get list of solutions from the strategy 
+        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        run: |
+          vctl\vctl.exe strategy get sdi-disbxt01-extension-strategy -o "json" | Out-File ./input.json
       
-      # - name: Look up this solution version in list found in above step
-      #   if: ${{ !endsWith(matrix.value, 'manifest.json') }}
-      #   run: |
-      #     jarray=$(cat ./input.json | jq '.layers')
-      #     obj_arr=$(echo $jarray | jq -c -r '.[]')
-      #     echo "sol_exist_flag=$(echo "NO")" >> $GITHUB_ENV
-      #     flag=0
-      #     for obj in ${obj_arr[*]}
-      #     do
-      #       val=$(echo $obj)
-      #       if [ "$val" = "${{env.zip_name}}" ]; then
-      #         echo "sol_exist_flag=$(echo "YES")" >> $GITHUB_ENV
-      #         flag=1
-      #       fi
-      #     done
-      #     if [ $flag -eq 1 ]; then
-      #       echo "This solution ${{env.zip_name}} version already exists in strategy."
-      #     else 
-      #       echo "This solution ${{env.zip_name}} version doesn't exists in strategy."
-      #     fi
-      #   shell: bash
+      - name: Look up this solution version in list found in above step
+        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        run: |
+          jarray=$(cat ./input.json | jq '.layers')
+          obj_arr=$(echo $jarray | jq -c -r '.[]')
+          echo "sol_exist_flag=$(echo "NO")" >> $GITHUB_ENV
+          flag=0
+          for obj in ${obj_arr[*]}
+          do
+            val=$(echo $obj)
+            if [ "$val" = "${{env.zip_name}}" ]; then
+              echo "sol_exist_flag=$(echo "YES")" >> $GITHUB_ENV
+              flag=1
+            fi
+          done
+          if [ $flag -eq 1 ]; then
+            echo "This solution ${{env.zip_name}} version already exists in strategy."
+          else 
+            echo "This solution ${{env.zip_name}} version doesn't exists in strategy."
+          fi
+        shell: bash
 
-      # - name: Remove the solution version from strategy if already exists
-      #   if: ${{ env.sol_exist_flag == 'YES' && !endsWith(matrix.value, 'manifest.json') }}
-      #   run: vctl\vctl.exe strategy remove sdi-disbxt01-extension-strategy ${{env.zip_name}}
+      - name: Remove the solution version from strategy if already exists
+        if: ${{ env.sol_exist_flag == 'YES' && !endsWith(matrix.value, 'manifest.json') }}
+        run: vctl\vctl.exe strategy remove sdi-disbxt01-extension-strategy ${{env.zip_name}}
 
-      # - name: Delete same existing solution version from tenant if already exists
-      #   if: ${{ env.sol_exist_flag == 'YES' && !endsWith(matrix.value, 'manifest.json') }}
-      #   run: vctl\vctl.exe solution delete $(echo ${{env.zip_name}} | cut -d "-" -f 1) $(echo ${{env.zip_name}} | cut -d "-" -f 2)
+      - name: Delete same existing solution version from tenant if already exists
+        if: ${{ env.sol_exist_flag == 'YES' && !endsWith(matrix.value, 'manifest.json') }}
+        run: vctl\vctl.exe solution delete $(echo ${{env.zip_name}} | cut -d "-" -f 1) $(echo ${{env.zip_name}} | cut -d "-" -f 2)
 
-      # - name: Uploading updated solution version to tenant
-      #   if: ${{ !endsWith(matrix.value, 'manifest.json') }}
-      #   run: vctl\vctl.exe solution upload ${{env.zip_name}}.zip
+      - name: Uploading updated solution version to tenant
+        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        run: vctl\vctl.exe solution upload ${{env.zip_name}}.zip
 
-      # - name: Adding updated solution version to Strategy
-      #   if: ${{ !endsWith(matrix.value, 'manifest.json') }}
-      #   run: vctl\vctl.exe strategy add sdi-disbxt01-extension-strategy ${{env.zip_name}}
+      - name: Adding updated solution version to Strategy
+        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        run: vctl\vctl.exe strategy add sdi-disbxt01-extension-strategy ${{env.zip_name}}
 
    
  
