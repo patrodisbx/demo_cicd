@@ -54,7 +54,7 @@ jobs:
         shell: bash
 
       - name: Moving the file
-        run: mv -f ./${{ matrix.value }} ./${{env.new_folder}}
+        run: mv -f -R ./${{ matrix.value }} ./${{env.new_folder}}
         shell: bash
    
       # - name: Bundle the solution into zip file in current working directory
