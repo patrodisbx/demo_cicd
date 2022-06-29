@@ -36,16 +36,16 @@ jobs:
     
     steps:
       - name: Checking out current git repository
-        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         uses: actions/checkout@v2
 
       - name: Capturing the solution name to bundle
-        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: echo "obj_name=$(echo ${{ matrix.value }} | cut -d "/" -f 1)" >> $GITHUB_ENV
         shell: bash
   
       - name: Log-in to DI through vctl
-        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: vctl\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
 
       - name: Create Solution structure for graphs and operators
@@ -61,22 +61,22 @@ jobs:
         shell: bash
    
       - name: Bundle the solution into zip file in current working directory
-        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: vctl\vctl.exe solution bundle ${{env.obj_name}}
 
       - name: Capture the solution version post bundle
-        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: |
           echo "zip_name=$(ls | sed -n 's/\.zip$//p')" >> $GITHUB_ENV
         shell: bash
       
       - name: Get list of solutions from the strategy 
-        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: |
           vctl\vctl.exe strategy get sdi-disbxt01-extension-strategy -o "json" | Out-File ./input.json
       
       - name: Look up this solution version in list found in above step
-        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: |
           jarray=$(cat ./input.json | jq '.layers')
           obj_arr=$(echo $jarray | jq -c -r '.[]')
@@ -106,11 +106,11 @@ jobs:
         run: vctl\vctl.exe solution delete $(echo ${{env.zip_name}} | cut -d "-" -f 1) $(echo ${{env.zip_name}} | cut -d "-" -f 2)
 
       - name: Uploading updated solution version to tenant
-        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: vctl\vctl.exe solution upload ${{env.zip_name}}.zip
 
       - name: Adding updated solution version to Strategy
-        if: ${{ !endsWith(matrix.value, 'manifest.json') }}
+        if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: vctl\vctl.exe strategy add sdi-disbxt01-extension-strategy ${{env.zip_name}}
 
    
