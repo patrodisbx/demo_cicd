@@ -56,7 +56,8 @@ jobs:
       - name: Moving the file
         run: | 
           mkdir -p ${{env.new_folder}}
-          mv -f -R ./${{ matrix.value }} ./${{env.new_folder}}
+          mv -f ./${{ matrix.value }} ./${{env.new_folder}}
+          ls -al
         shell: bash
    
       # - name: Bundle the solution into zip file in current working directory
