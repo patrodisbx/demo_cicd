@@ -50,11 +50,13 @@ jobs:
 
       - name: Create Solution structure for graphs and operators
         run: |
-          echo "new_folder=$(echo  ${{ matrix.value }} | sed "s/graph.json/content\/files\/vflow\/graphs\/Test\/${{env.obj_name}}\/graph.json/g")" >> $GITHUB_ENV
+          echo "new_folder=$(echo  ${{ matrix.value }} | sed "s/graph.json/content\/files\/vflow\/graphs\/Test\/${{env.obj_name}}/g")" >> $GITHUB_ENV
         shell: bash
 
       - name: Moving the file
-        run: mv -f -R ./${{ matrix.value }} ./${{env.new_folder}}
+        run: | 
+          mkdir -p ${{env.new_folder}}
+          mv -f -R ./${{ matrix.value }} ./${{env.new_folder}}
         shell: bash
    
       # - name: Bundle the solution into zip file in current working directory
