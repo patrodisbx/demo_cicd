@@ -57,9 +57,15 @@ jobs:
       - name: Moving the file
         if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: | 
-          mkdir -p ${{env.new_folder}}
-          mv -f ./${{ matrix.value }} ./${{env.new_folder}}
-          ls -al
+          result=$(find ${{env.obj_name}} -type d launchConfigs)
+          if [[ -n $result ]]; then
+            mkdir -p ${{env.new_folder}}/launchConfigs
+            mv -f ./${{ matrix.value }} ./${{env.new_folder}}
+            mv -f ./${{ matrix.value }}/launchConfigs/* ./${{env.new_folder}}/launchConfigs
+          else 
+            mkdir -p ${{env.new_folder}}
+            mv -f ./${{ matrix.value }} ./${{env.new_folder}}
+          fi
         shell: bash
    
       - name: Bundle the solution into zip file in current working directory
