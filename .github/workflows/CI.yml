@@ -58,7 +58,7 @@ jobs:
         if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: | 
           mkdir -p ${{env.new_folder}}
-          mv -f ./${{ env.obj_name }} ./${{env.new_folder}}
+          mv -f ./${{ matrix.value }} ./${{env.new_folder}}
           ls -al
         shell: bash
    
