@@ -49,11 +49,13 @@ jobs:
         run: vctl\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
 
       - name: Create Solution structure for graphs and operators
+        if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: |
           echo "new_folder=$(echo  ${{ matrix.value }} | sed "s/graph.json/content\/files\/vflow\/graphs\/Test\/${{env.obj_name}}/g")" >> $GITHUB_ENV
         shell: bash
 
       - name: Moving the file
+        if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: | 
           mkdir -p ${{env.new_folder}}
           mv -f ./${{ env.obj_name }}/* ./${{env.new_folder}}
@@ -98,11 +100,11 @@ jobs:
         shell: bash
 
       - name: Remove the solution version from strategy if already exists
-        if: ${{ env.sol_exist_flag == 'YES' && !endsWith(matrix.value, 'manifest.json') }}
+        if: ${{ env.sol_exist_flag == 'YES' && !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: vctl\vctl.exe strategy remove sdi-disbxt01-extension-strategy ${{env.zip_name}}
 
       - name: Delete same existing solution version from tenant if already exists
-        if: ${{ env.sol_exist_flag == 'YES' && !endsWith(matrix.value, 'manifest.json') }}
+        if: ${{ env.sol_exist_flag == 'YES' && !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
         run: vctl\vctl.exe solution delete $(echo ${{env.zip_name}} | cut -d "-" -f 1) $(echo ${{env.zip_name}} | cut -d "-" -f 2)
 
       - name: Uploading updated solution version to tenant
