@@ -7,8 +7,8 @@
             "component": "com.sap.kafka.producer",
             "metadata": {
                 "label": "producer (20fb)",
-                "x": 519,
-                "y": 12,
+                "x": 571.999997138977,
+                "y": 73,
                 "height": 80,
                 "width": 120,
                 "config": {
@@ -25,8 +25,8 @@
             "component": "com.sap.system.python3Operator",
             "metadata": {
                 "label": "Python3 Operator",
-                "x": 181,
-                "y": 12,
+                "x": 201.99999904632568,
+                "y": 118,
                 "height": 80,
                 "width": 120,
                 "extensible": true,
@@ -55,8 +55,8 @@
             "component": "com.sap.util.wiretap",
             "metadata": {
                 "label": "Output",
-                "x": 350,
-                "y": 12,
+                "x": 386.99999809265137,
+                "y": 133,
                 "height": 80,
                 "width": 120,
                 "generation": 1,
@@ -68,8 +68,8 @@
             "component": "com.sap.util.datageneratorpy3",
             "metadata": {
                 "label": "Py3 Data Generator",
-                "x": 12,
-                "y": 12,
+                "x": 17,
+                "y": 134,
                 "height": 80,
                 "width": 120,
                 "extensible": true,
@@ -79,13 +79,61 @@
                 "generation": 1,
                 "config": {}
             }
+        },
+        "writefile1": {
+            "component": "com.sap.file.write",
+            "metadata": {
+                "label": "Write File",
+                "x": 386.99999809265137,
+                "y": 13,
+                "height": 80,
+                "width": 120,
+                "generation": 1,
+                "config": {
+                    "pathMode": "Static with placeholders",
+                    "path": "/SAP_DI/DEV/<header:sysname>/SAP_${tableName}/<header:datetime>/_manifest.json",
+                    "connection": {
+                        "configurationType": "Connection Management",
+                        "connectionID": "S3_UDH"
+                    },
+                    "mode": "Append"
+                }
+            }
+        },
+        "csvgenv31": {
+            "component": "CSVGeneratorv3",
+            "metadata": {
+                "label": "CSV Gen V3",
+                "x": 17,
+                "y": 12,
+                "height": 82,
+                "width": 120,
+                "extensible": true,
+                "filesRequired": [
+                    "script.py"
+                ],
+                "generation": 1,
+                "config": {}
+            }
+        },
+        "tofile1": {
+            "component": "com.sap.file.toFile",
+            "metadata": {
+                "label": "To File",
+                "x": 236.49999904632568,
+                "y": 28,
+                "height": 50,
+                "width": 50,
+                "generation": 1,
+                "config": {}
+            }
         }
     },
     "groups": [],
     "connections": [
         {
             "metadata": {
-                "points": "305,52 345,52"
+                "points": "325.9999990463257,158 353.9999985694885,158 353.9999985694885,173 381.99999809265137,173"
             },
             "src": {
                 "port": "out",
@@ -98,7 +146,7 @@
         },
         {
             "metadata": {
-                "points": "474,52 514,52"
+                "points": "510.99999809265137,173 538.9999976158142,173 538.9999976158142,113 566.999997138977,113"
             },
             "src": {
                 "port": "out",
@@ -111,7 +159,7 @@
         },
         {
             "metadata": {
-                "points": "136,52 176,52"
+                "points": "141,174 168.99999952316284,174 168.99999952316284,158 196.99999904632568,158"
             },
             "src": {
                 "port": "output",
@@ -120,6 +168,32 @@
             "tgt": {
                 "port": "input1",
                 "process": "python3operator1"
+            }
+        },
+        {
+            "metadata": {
+                "points": "141,62 231.49999904632568,62"
+            },
+            "src": {
+                "port": "outManifest",
+                "process": "csvgenv31"
+            },
+            "tgt": {
+                "port": "in",
+                "process": "tofile1"
+            }
+        },
+        {
+            "metadata": {
+                "points": "290.4999990463257,53 381.99999809265137,53"
+            },
+            "src": {
+                "port": "file",
+                "process": "tofile1"
+            },
+            "tgt": {
+                "port": "file",
+                "process": "writefile1"
             }
         }
     ],
