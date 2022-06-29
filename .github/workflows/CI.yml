@@ -49,7 +49,10 @@ jobs:
         run: vctl\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
 
       - name: Create Solution structure for graphs and operators
-        run: echo  ${{ matrix.value }} | sed "s/graph.json/content\/files\/vflow\/graphs\/Test\/${{env.obj_name}}\/graph.json/g"
+        run: new_folder=$(echo  ${{ matrix.value }} | sed "s/graph.json/content\/files\/vflow\/graphs\/Test\/${{env.obj_name}}\/graph.json/g")
+
+      - name: Moving the file
+        run: mv -f ./${{ matrix.value }} ./${{env.obj_name}}/${{ matrix.value }}
    
       # - name: Bundle the solution into zip file in current working directory
       #   if: ${{ !endsWith(matrix.value, 'manifest.json') }}
