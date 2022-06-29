@@ -1,7 +1,7 @@
 {
     "properties": {},
     "iconsrc": "kafka.png",
-    "description": "Kafka Generator1",
+    "description": "Kafka Generator",
     "processes": {
         "20fb": {
             "component": "com.sap.kafka.producer",
