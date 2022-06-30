@@ -24,7 +24,7 @@ jobs:
         run: |
           echo '::set-output name=value::${{ env.GIT_DIFF }}'
           echo "${{ env.GIT_DIFF }}" | jq -c -r '.[] | select(.file | contains("graph.json"))'
-        bash: shell
+        shell: bash
 
   # build:
   #   needs: [setup]
