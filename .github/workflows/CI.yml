@@ -25,7 +25,7 @@ jobs:
           echo '::set-output name=value::${{ env.GIT_DIFF }}'
           for i in ${{ env.GIT_DIFF }}
           do 
-            echo $i
+            echo 'found'
           done
         shell: bash
 
