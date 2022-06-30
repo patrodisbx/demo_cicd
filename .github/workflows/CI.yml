@@ -26,6 +26,9 @@ jobs:
           echo '::set-output name=value::${result}'
         shell: bash
 
+      - name: Look
+        run: echo ${{steps.list_file.outputs.value}}
+
   build:
     needs: [setup]
     runs-on: windows-latest
