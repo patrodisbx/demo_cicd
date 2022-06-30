@@ -23,8 +23,7 @@ jobs:
         id: list_file
         run: |
           result=$(echo '${{ env.GIT_DIFF }}' | jq '.[] | select(. | contains("graph.json"))' | jq -s .)
-          echo ${result}
-#          echo '::set-output name=value::$(echo "[${{result}}]")'
+          echo '::set-output name=value::${{result}}'
         shell: bash
 
   build:
