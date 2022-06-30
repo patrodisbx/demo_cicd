@@ -23,7 +23,7 @@ jobs:
         id: list_file
         run: |
           echo '::set-output name=value::${{ env.GIT_DIFF }}'
-          echo '${{ env.GIT_DIFF }}' | jq .
+          echo '${{ env.GIT_DIFF }}' | jq .[]
         shell: bash
 
   # build:
