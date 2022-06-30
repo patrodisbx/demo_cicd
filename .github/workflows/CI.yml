@@ -22,24 +22,28 @@ jobs:
       - name: List files  
         id: list_file
         run: |
-          echo '::set-output name=value::${{ env.GIT_DIFF }}'
-          echo '${{ env.GIT_DIFF }}' | jq '.[] | select(. | contains("graph.json"))'
+#          echo '::set-output name=value::${{ env.GIT_DIFF }}'
+          result=$(echo '${{ env.GIT_DIFF }}' | jq '.[] | select(. | contains("graph.json"))')
+          echo '::set-output name=value::echo "[${result}]"'
         shell: bash
 
-  # build:
-  #   needs: [setup]
-  #   runs-on: windows-latest
-  #   strategy: 
-  #     matrix: 
-  #       value: ${{fromJson(needs.setup.outputs.matrix)}}
-  #       exclude:
-  #         - value: .github/workflows/CI.yml
-  #         - value: vctl/vctl.exe
+  build:
+    needs: [setup]
+    runs-on: windows-latest
+    strategy: 
+      matrix: 
+        value: ${{fromJson(needs.setup.outputs.matrix)}}
+        exclude:
+          - value: .github/workflows/CI.yml
+          - value: vctl/vctl.exe
     
-  #   steps:
-  #     - name: Checking out current git repository
-  #       if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Test
+        run: dir
+      # - name: Checking out current git repository
+      #   if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
+      #   uses: actions/checkout@v2
+       
 
   #     - name: Capturing the solution name to bundle
   #       if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
