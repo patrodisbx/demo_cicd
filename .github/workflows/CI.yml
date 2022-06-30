@@ -19,15 +19,13 @@ jobs:
         with:
           format: JSON
 
-      - name: List files  
-        id: list_file
-        run: |
-          result=$(echo '${{ env.GIT_DIFF }}' | jq '.[] | select(. | contains("graph.json"))' | jq -s .)
-          echo '::set-output name=value::${result}'
+      - name: Filter files for graphs and operators only  
+        run: echo "filtered_op=$(echo '${{ env.GIT_DIFF }}' | jq '.[] | select(. | contains("graph.json"))' | jq -s .)" >> GITHUB_ENV
         shell: bash
 
-      - name: Look
-        run: echo ${{steps.list_file.outputs.value}}
+      - name: Passing the final output to build
+        id: list_file
+        run: echo '::set-output name=value::${{ env.filtered_op }}'
 
   build:
     needs: [setup]
