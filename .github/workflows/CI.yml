@@ -21,7 +21,7 @@ jobs:
 
       - name: Filter files for graphs and operators only  
         run: |
-          res=$(echo '${{ env.GIT_DIFF }}' | jq '.[] | select(. | contains("graph.json"))' | jq -s .)
+          res=$(echo '${{ env.GIT_DIFF }}' | jq '.[] | select(. | contains("graph.json"))' | jq -nR .)
           echo "filtered_op=$res" >> $GITHUB_ENV
         shell: bash
 
