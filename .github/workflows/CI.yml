@@ -20,7 +20,8 @@ jobs:
           format: JSON
 
       - name: Filter files for graphs and operators only  
-        run: echo "filtered_op=$(echo '${{ env.GIT_DIFF }}' | jq '.[] | select(. | contains("graph.json"))' | jq -s .)" >> $GITHUB_ENV
+        run: |
+          echo 'filtered_op=$(echo '${{ env.GIT_DIFF }}' | jq '.[] | select(. | contains("graph.json"))' | jq -s .)' >> $GITHUB_ENV
         shell: bash
 
       - name: Passing the final output to build
