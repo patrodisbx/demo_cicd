@@ -23,7 +23,7 @@ jobs:
         id: list_file
         run: |
           result=$(echo '${{ env.GIT_DIFF }}' | jq '.[] | select(. | contains("graph.json"))')
-          echo '::set-output name=value::echo "[${result}]"'
+          echo '::set-output name=value::$(echo "[${{result}}]")'
         shell: bash
 
   build:
@@ -38,7 +38,8 @@ jobs:
     
     steps:
       - name: Test
-        run: dir
+        run: echo ${{ matrix.value }}
+        shell: bash
       # - name: Checking out current git repository
       #   if: ${{ !endsWith(matrix.value, 'manifest.json') && !endsWith(matrix.value, 'default.json') }}
       #   uses: actions/checkout@v2
