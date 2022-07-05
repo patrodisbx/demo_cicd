@@ -63,6 +63,7 @@ jobs:
 
       - name: Building the solution directory structure 
         run: | 
+          mkdir -p ${{env.target_dir}}
           cp -R ${{env.source_dir}} ${{env.target_dir}}
         shell: bash
    
