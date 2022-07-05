@@ -1,0 +1,16 @@
+{
+    "description": "Mikun",
+    "component": "com.sap.system.python3Operator",
+    "versionStatus": "active",
+    "inports": [
+        {
+            "name": "inTest",
+            "type": "message"
+        }
+    ],
+    "icon": "puzzle-piece",
+    "config": {
+        "$type": "http://sap.com/vflow/Mikun.configSchema.json",
+        "script": "file://script.py"
+    }
+}
