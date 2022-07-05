@@ -5,7 +5,7 @@
     "inports": [
         {
             "name": "inTest",
-            "type": "message"
+            "type": "string"
         }
     ],
     "icon": "puzzle-piece",
