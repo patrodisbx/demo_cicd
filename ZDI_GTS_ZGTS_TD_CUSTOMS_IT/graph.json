@@ -1,0 +1,379 @@
+{
+    "properties": {},
+    "description": "ZDI_GTS_ZGTS_TD_CUSTOMS_IT",
+    "processes": {
+        "writefile1": {
+            "component": "com.sap.file.write",
+            "metadata": {
+                "label": "Write File",
+                "x": 512.999997138977,
+                "y": 12,
+                "height": 80,
+                "width": 120,
+                "generation": 1,
+                "config": {
+                    "pathMode": "Static with placeholders",
+                    "path": "/SAP_DI/DEV/<header:sysname>/SAP_${tableName}/<header:datetime>/data-<header:cnt>.csv",
+                    "mode": "Append",
+                    "connection": {
+                        "configurationType": "Connection Management",
+                        "connectionID": "S3_UDH"
+                    },
+                    "joinBatches": false
+                }
+            }
+        },
+        "writefile4": {
+            "component": "com.sap.file.write",
+            "metadata": {
+                "label": "Write File",
+                "x": 512.999997138977,
+                "y": 372,
+                "height": 80,
+                "width": 120,
+                "generation": 1,
+                "config": {
+                    "pathMode": "Static with placeholders",
+                    "path": "/SAP_DI/DEV/<header:sysname>/SAP_${tableName}_PARQUET/<header:datetime>/data-<header:parq_cnt>.parquet",
+                    "mode": "Append",
+                    "connection": {
+                        "configurationType": "Connection Management",
+                        "connectionID": "S3_UDH"
+                    },
+                    "joinBatches": false
+                }
+            }
+        },
+        "tofile1": {
+            "component": "com.sap.file.toFile",
+            "metadata": {
+                "label": "To File",
+                "x": 397.99999809265137,
+                "y": 72,
+                "height": 50,
+                "width": 50,
+                "generation": 1,
+                "config": {}
+            }
+        },
+        "graphterminator1": {
+            "component": "com.sap.util.graphTerminator",
+            "metadata": {
+                "label": "Graph Terminator",
+                "x": 697.9999961853027,
+                "y": 192,
+                "height": 80,
+                "width": 120,
+                "generation": 1,
+                "config": {}
+            }
+        },
+        "writefile2": {
+            "component": "com.sap.file.write",
+            "metadata": {
+                "label": "Write File",
+                "x": 512.999997138977,
+                "y": 132,
+                "height": 80,
+                "width": 120,
+                "generation": 1,
+                "config": {
+                    "connection": {
+                        "configurationType": "Connection Management",
+                        "connectionID": "S3_UDH"
+                    },
+                    "pathMode": "Dynamic (from input)",
+                    "mode": "Overwrite"
+                }
+            }
+        },
+        "tofile2": {
+            "component": "com.sap.file.toFile",
+            "metadata": {
+                "label": "To File",
+                "x": 397.99999809265137,
+                "y": 162,
+                "height": 50,
+                "width": 50,
+                "generation": 1,
+                "config": {}
+            }
+        },
+        "abapodpreader1": {
+            "component": "com.sap.abap.odp.reader",
+            "metadata": {
+                "label": "ABAP ODP Reader V2",
+                "x": 12,
+                "y": 237,
+                "height": 80,
+                "width": 120,
+                "extensible": true,
+                "generation": 1,
+                "config": {
+                    "connectionID": "ECC",
+                    "operatorID": "com.sap.abap.odp.reader.v2",
+                    "subscriptionType": "Existing",
+                    "context": "ODP_SAPI",
+                    "extractionMode": "DELTA",
+                    "odpname": "0MATERIAL_ATTR",
+                    "pollingPeriod": 6,
+                    "subscriptionID": "AE2FE80A06031EDCA98FCF94847B98BD"
+                },
+                "additionaloutports": [
+                    {
+                        "name": "outMessageData",
+                        "type": "message"
+                    }
+                ]
+            }
+        },
+        "writefile3": {
+            "component": "com.sap.file.write",
+            "metadata": {
+                "label": "Write File",
+                "x": 512.999997138977,
+                "y": 252,
+                "height": 80,
+                "width": 120,
+                "generation": 1,
+                "config": {
+                    "pathMode": "Static with placeholders",
+                    "mode": "Overwrite",
+                    "connection": {
+                        "configurationType": "Connection Management",
+                        "connectionID": "S3_UDH"
+                    },
+                    "path": "/SAP_DI/DEV/<header:sysname>/SAP_${tableName}/<header:datetime>/_manifest.json"
+                }
+            }
+        },
+        "tofile3": {
+            "component": "com.sap.file.toFile",
+            "metadata": {
+                "label": "To File",
+                "x": 397.99999809265137,
+                "y": 252,
+                "height": 50,
+                "width": 50,
+                "generation": 1,
+                "config": {}
+            }
+        },
+        "writefile5": {
+            "component": "com.sap.file.write",
+            "metadata": {
+                "label": "Write File",
+                "x": 196.99999904632568,
+                "y": 122,
+                "height": 80,
+                "width": 120,
+                "generation": 1,
+                "config": {
+                    "pathMode": "Static with placeholders",
+                    "mode": "Overwrite",
+                    "connection": {
+                        "configurationType": "Connection Management",
+                        "connectionID": "S3_UDH"
+                    },
+                    "path": "/SAP_DI/DEV/<header:sysname>/SAP_${tableName}_PARQUET/<header:datetime>/_manifest.json"
+                }
+            }
+        },
+        "tofile5": {
+            "component": "com.sap.file.toFile",
+            "metadata": {
+                "label": "To File",
+                "x": 82,
+                "y": 147,
+                "height": 50,
+                "width": 50,
+                "generation": 1,
+                "config": {}
+            }
+        },
+        "tofile4": {
+            "component": "com.sap.file.toFile",
+            "metadata": {
+                "label": "To File",
+                "x": 397.99999809265137,
+                "y": 342,
+                "height": 50,
+                "width": 50,
+                "generation": 1,
+                "config": {}
+            }
+        },
+        "csvparquetgenerator1": {
+            "component": "CSVPARQUETGENERATOR",
+            "metadata": {
+                "label": "CSV & Parquet Generator",
+                "x": 196.99999904632568,
+                "y": 242,
+                "height": 82,
+                "width": 120,
+                "extensible": true,
+                "filesRequired": [
+                    "script.py"
+                ],
+                "generation": 1,
+                "config": {
+                    "script": "from io import StringIO\r\nimport io\r\nfrom datetime import datetime\r\nimport csv\r\nimport pandas as pd\r\nimport json\r\nimport sys\r\nimport pytz\r\nimport pyarrow as pa\r\nfrom pyarrow import csv\r\n\r\nsize = 0\r\ndatafilecounter = 1\r\nparquetdatafilecounter = 0\r\nmultiplier = 1.0\r\nfilekblimit = int(\"0\" if(not api.config.maxfilesize) else api.config.maxfilesize) * multiplier * 1024 * 1024\r\nbatchcounter = -1\r\ncol = []\r\ncol_derived = []\r\nattr = {}\r\ntimeZ_CE = pytz.timezone('US/Central')\r\ninitial_datetime = datetime.now(timeZ_CE)\r\nlastbatch_datetime = datetime.now(timeZ_CE)\r\ninitial_datetime_formatted = initial_datetime.strftime('%Y%m%d_%H%M%S')\r\nlastBatch = False\r\nduration_secs = int(\"15\" if(not api.config.duration) else api.config.duration) * 60\r\ndf_parq = pd.DataFrame()\r\nmanifest = []\r\ndtype_dict = {}\r\ncsv_rownum = 0\r\n\r\ndef result_datatype_metadata(tot_length,type,decimals):\r\n    if(type in [\"RAW\",\"LRAW\",\"CHAR\",\"NUMC\",\"UNIT\",\"CUKY\",\"LCHR\",\"STRING\",\"RAWSTRING\",\"ACCP\",\"CLNT\",\"LANG\"]):\r\n        return \"VARCHAR\" + \"(\" + str(int(tot_length)) + \")\" \r\n    elif(type in [\"DEC\", \"FLTP\",\"QUAN\",\"CURR\"]):\r\n        if(int(decimals)==0):\r\n            return \"VARCHAR\" + \"(\" + str(int(tot_length)) + \")\"\r\n        else:\r\n            return \"DECIMAL\" + \"(\" + str(int(tot_length)) + \",\" + str(int(decimals)) + \")\"\r\n    elif(type in [\"INT4\",\"INT1\",\"INT2\"]):\r\n        return \"INTEGER\"\r\n    elif(type == \"DATS\"):\r\n        return \"VARCHAR(10)\"\r\n    elif(type == \"TIMS\"):\r\n        return \"VARCHAR(8)\"\r\n    else:\r\n        return \"NA\"\r\n        \r\ndef result_datatype_abap(kind,length,decimals):\r\n    if(kind in [\"N\",\"C\",\"X\"]):\r\n        return \"VARCHAR\" + \"(\" + str(int(length)) + \")\" \r\n    elif(kind in [\"P\",\"F\"]):\r\n        return \"DECIMAL\" + \"(\" + str(int(length)) + \",\" + str(int(decimals)) + \")\"\r\n    elif(kind == \"D\"):\r\n        return \"VARCHAR(10)\"\r\n    else:\r\n        return \"NA\"\r\n        \r\ndef generate_manifest(inAttr):\r\n    global manifest\r\n    global col\r\n    global col_derived\r\n    \r\n    # Defining column list from ABAP Section\r\n    cntr = 1\r\n    abap = []\r\n    ABAPKEY = inAttr['ABAP']\r\n    for i in ABAPKEY['Fields']:\r\n        if(not i['Name'] == 'ROCANCEL'):\r\n            name = i['Name'].replace(\"/\",\"_\")\r\n            dict1 = {\r\n                \"Order\": cntr,\r\n                \"name\": '_'+name if(name[0].isdigit()) else name,\r\n                \"originalName\": i['Name'],\r\n                \"genericType\": result_datatype_abap(i['Kind'], i['Length'],i['Decimals']),\r\n                \"typeDomain\": api.config.sourcesystem\r\n            }\r\n            abap.append(dict1)\r\n            cntr += 1\r\n    \r\n    # Defining column list from Metadata Section\r\n    cntr = 1\r\n    # if(\"MANDT\" in col):\r\n    #     cntr += 1\r\n    metadata = []\r\n    ABAPKEY = inAttr['metadata']\r\n    for i in ABAPKEY:\r\n        if(not i['Field']['COLUMNNAME'] == 'ROCANCEL'):\r\n            name = i['Field']['COLUMNNAME'].replace(\"/\",\"_\")\r\n            dict1 = {\r\n                \"Order\": cntr,\r\n                \"name\": '_'+name if(name[0].isdigit()) else name,\r\n                \"originalName\": i['Field']['COLUMNNAME'],\r\n                \"genericType\": result_datatype_metadata(i['Field']['ABAPLEN'], i['Field']['ABAPTYPE'],i['Field']['DECIMALS']),\r\n                \"typeDomain\": api.config.sourcesystem\r\n            }\r\n            metadata.append(dict1)\r\n            cntr += 1\r\n    \r\n    #Defining final column list \r\n    cntr = 1\r\n    for i in abap:\r\n        if(i['name'] == \"MANDT\" and metadata[0]['name'] != \"MANDT\"):\r\n            i['Order'] = cntr\r\n            manifest.append(i)\r\n        else:\r\n            found_flag = 0\r\n            for j in metadata:\r\n                if(i['originalName'] == j['originalName']):\r\n                    j['Order'] = cntr\r\n                    manifest.append(j)\r\n                    found_flag = 1\r\n            if(found_flag == 0):\r\n                i['Order'] = cntr\r\n                manifest.append(i)\r\n        cntr += 1\r\n\r\n    dict_load_date = {\r\n            \"Order\": cntr,\r\n            \"name\": \"EXTRACT_DATE\",\r\n            \"originalName\": \"EXTRACT_DATE\",\r\n            \"genericType\": \"DATE(10)\",\r\n            \"typeDomain\": api.config.sourcesystem\r\n        } \r\n    manifest.append(dict_load_date)\r\n    \r\n    cntr += 1\r\n    dict_rownum = {\r\n            \"Order\": cntr,\r\n            \"name\": \"ROW_INDEX\",\r\n            \"originalName\": \"ROW_INDEX\",\r\n            \"genericType\": \"INTEGER\",\r\n            \"typeDomain\": api.config.sourcesystem\r\n        }\r\n    manifest.append(dict_rownum)\r\n\r\n    for i in manifest:\r\n        col_derived.append(i['name'])\r\n    \r\n    outDict = {\r\n            \"structure\": manifest\r\n        }  \r\n    app_json = json.dumps(outDict)\r\n    api.send(\"outManifest\",api.Message(app_json, inAttr))\r\n\r\ndef get_pandas_dtype(type):\r\n    if(type.startswith(\"VARCHAR\")):\r\n        return 'object'\r\n    elif(type.startswith(\"DECIMAL\")):\r\n        return pa.decimal128(precision = 13,scale = 3)\r\n    elif(type.startswith(\"INT\")):\r\n        return 'int64'   \r\n    elif(type.startswith(\"bool\")):\r\n        return 'bool'\r\n    elif(type.startswith(\"DATE\")):\r\n        return 'datetime64'\r\n    \r\ndef pandsa_dtypes():\r\n    global manifest\r\n    global dtype_dict\r\n    \r\n    for i in manifest:\r\n        dtype_dict[i['originalName']] = get_pandas_dtype(i['genericType'])\r\n\r\ndef data_profiling(inDF):\r\n    global attr\r\n    \r\n    if('header' in attr.keys()):\r\n        inDF['ODQ_CHANGEMODE'] = \"U\"\r\n    else:\r\n        # Nullify Invalid date values\r\n        if('ODQ_CHANGEMODE' in inDF.columns):\r\n            inDF['ODQ_CHANGEMODE'].fillna(\"U\", inplace = True)\r\n            #Replace new image C values with U\r\n            # inDF.loc[inDF['ODQ_CHANGEMODE']== \"C\", \"ODQ_CHANGEMODE\"] = \"U\"\r\n            # Drop before image rows\r\n            # inDF.drop(inDF[(inDF.ODQ_CHANGEMODE == \"U\") & (inDF.ODQ_ENTITYCNTR == str(-1))].index, inplace = True)\r\n    if('IUUC_OPERATION' in inDF.columns):\r\n        inDF['IUUC_OPERATION'].fillna(\"U\", inplace = True)\r\n        #Replace new image C values with U\r\n        # inDF.loc[inDF['IUUC_OPERATION']== \"I\", \"IUUC_OPERATION\"] = \"U\"\r\n    if('ROCANCEL' in inDF.columns):\r\n        inDF.drop('ROCANCEL', axis = 'columns', inplace = True)\r\n    return inDF\r\n    \r\ndef generate_parquet(inDF,inAttr):\r\n    f= io.BytesIO()\r\n    inDF.to_parquet(f, engine = 'pyarrow', compression = 'gzip', index = False)\r\n    f.seek(0)\r\n    content = f.read()\r\n    f.truncate(0)\r\n    if(api.config.outfileformat in [\"BOTH\",\"PARQUET\"]):\r\n        api.send(\"outParquet\",api.Message(content, inAttr))\r\n        \r\ndef parquet_invoker():\r\n    global parquetdatafilecounter\r\n    global df_parq\r\n    global attr\r\n    global col_derived\r\n    \r\n    #Generate last Parquet if lastbatch is reached\r\n    parquetdatafilecounter += 1\r\n    attr['parq_cnt'] = str(parquetdatafilecounter)\r\n    parq_attr = attr.copy()\r\n    df_parq['ROW_INDEX'] = df_parq.reset_index().index + 1\r\n    df_parq.columns = col_derived\r\n    generate_parquet(df_parq,parq_attr)\r\n    \r\ndef generateSuccess():\r\n    path =  '/SAP_DI/DEV/' + api.config.sourcesystem + '/SAP_' + api.config.tableName + '/' + str(initial_datetime_formatted) + '/_SUCCESS'\r\n    api.send(\"outlastBatch\", api.Message(path))\r\n    # path =  '/SAP_DI/DEV/' + api.config.sourcesystem + '/SAP_' + api.config.tableName + '_PARQUET/' + str(initial_datetime_formatted) + '/_SUCCESS'\r\n    # api.send(\"outlastBatch\", api.Message(path))\r\n    \r\ndef generatecsvdf(inData):\r\n    global col_derived\r\n    global csv_rownum\r\n\r\n    df = pd.read_csv(inData, index_col=False, names=col, dtype = 'str')\r\n    df['EXTRACT_DATE'] = initial_datetime.date()\r\n    df = data_profiling(df)\r\n    csv_rownum += 1\r\n    df['ROW_INDEX'] = df.reset_index().index + csv_rownum\r\n    csv_rownum = df['ROW_INDEX'].max()\r\n    df.columns = col_derived\r\n    \r\n    return df\r\n    \r\ndef generatecparquetdf(inData, ind):\r\n    global col\r\n    global dtype_dict\r\n    global df_parq\r\n   \r\n    # df = pd.read_csv(inData, index_col=False, names=col, dtype = dtype_dict).fillna('')\r\n    # df['EXTRACT_DATE'] = initial_datetime.date()\r\n    # df = data_profiling(df)\r\n    # ls = df.dtypes.to_list()\r\n    \r\n    table = csv.read_csv(inData)\r\n    if(ind == 0):\r\n        df_parq = df.copy()\r\n    else: \r\n        df_parq = pd.concat([df_parq,df])\r\n\r\n    \r\ndef on_input(inData):\r\n    global size\r\n    global datafilecounter\r\n    global parquetdatafilecounter\r\n    global filekblimit\r\n    global batchcounter\r\n    global col\r\n    global initial_datetime\r\n    global manifest\r\n    global lastBatch\r\n    global lastbatch_datetime\r\n    global df_parq\r\n    global attr\r\n    global csv_rownum\r\n\r\n    #Variable Initializations \r\n    body = inData.body\r\n    attr = inData.attributes\r\n    batchcounter = attr['message.batchIndex']\r\n    parquet_reinitialize = 0\r\n    data = StringIO(body)\r\n    attr['datetime'] = str(initial_datetime_formatted)\r\n    attr['sysname'] = api.config.sourcesystem\r\n    if(filekblimit == 0):\r\n        filekblimit = 300 * multiplier * 1024 * 1024\r\n    \r\n    if('message.lastBatch' in attr.keys()):\r\n        lastBatch = attr['message.lastBatch']\r\n \r\n    #In case of Valid source data with content  \r\n    if(body):\r\n        #Getting the columns names from Attributes into col\r\n        if(batchcounter == 0):\r\n            if('ABAP' in attr.keys()):\r\n                ABAPKEY = attr['ABAP']\r\n                for columnname in ABAPKEY['Fields']:\r\n                    if(not columnname['Name'] == 'ROCANCEL'):\r\n                        col.append(columnname['Name'])\r\n                #To Generate manifest.json file in the target directory\r\n                generate_manifest(attr)\r\n                # pandsa_dtypes()\r\n            else:\r\n                col = attr['header'].split(',')\r\n             \r\n    \r\n        #Logic Implementation\r\n        size += sys.getsizeof(str(body))\r\n        \r\n        if(batchcounter == 0):\r\n            attr['cnt'] = str(datafilecounter)\r\n            df = generatecsvdf(data)\r\n            # data.seek(0)\r\n            df_csv = df.to_csv(index=False, header = True, sep = '\\x01' )\r\n            # generatecparquetdf(data, 0)\r\n        elif(size >= filekblimit):\r\n            # parquet_invoker()\r\n            datafilecounter += 1\r\n            attr['cnt'] = str(datafilecounter)\r\n            size = sys.getsizeof(str(body))\r\n            df = generatecsvdf(data)\r\n            # data.seek(0)\r\n            df_csv = df.to_csv(index=False, header = True, sep = '\\x01' )\r\n            # parquet_reinitialize = 1\r\n        else:\r\n            attr['cnt'] = str(datafilecounter)\r\n            df = generatecsvdf(data)\r\n            # data.seek(0)\r\n            # generatecparquetdf(data,1)\r\n            df_csv = df.to_csv(index=False, header = False, sep = '\\x01')\r\n        \r\n        #Send the datafile to output ports    \r\n        if(api.config.outfileformat in [\"BOTH\",\"CSV\"]):\r\n            api.send(\"outCSV\", api.Message(attributes=attr, body=df_csv))\r\n        \r\n        #Reinitialize parquet dataframe when there size >= filekblimit    \r\n        # if(parquet_reinitialize == 1):\r\n        #     generatecparquetdf(data,0)\r\n            \r\n        #initialize lastbatch_datetime\r\n        lastbatch_datetime = datetime.now(timeZ_CE)\r\n        \r\n    #Send the signal in case of last batch\r\n    if(lastBatch):\r\n        # Generate last parquet file if lastBatch reached\r\n        # if(parquetdatafilecounter < datafilecounter):\r\n        #     parquet_invoker()\r\n        \r\n        #Success file generation and sending last batch signal\r\n        generateSuccess()\r\n    \r\n\r\napi.set_port_callback(\"inSourceData\", on_input)\r\n\r\ndef timer():\r\n    global lastbatch_datetime\r\n    global parquetdatafilecounter\r\n    global datafilecounter\r\n    \r\n    diff = datetime.now(timeZ_CE) - lastbatch_datetime\r\n    actual_duration = diff.total_seconds()\r\n    if(actual_duration >= duration_secs):\r\n        # Generate last parquet file as there is no more data\r\n        # if(parquetdatafilecounter < datafilecounter and batchcounter != -1):\r\n        #     parquet_invoker()\r\n        generateSuccess()\r\n\r\napi.add_timer(\"3m\",timer)\r\n",
+                    "maxfilesize": 300,
+                    "duration": "2",
+                    "sourcesystem": "ECC"
+                }
+            }
+        }
+    },
+    "groups": [],
+    "connections": [
+        {
+            "metadata": {
+                "points": "451.99999809265137,97 479.9999976158142,97 479.9999976158142,52 507.99999713897705,52"
+            },
+            "src": {
+                "port": "file",
+                "process": "tofile1"
+            },
+            "tgt": {
+                "port": "file",
+                "process": "writefile1"
+            }
+        },
+        {
+            "metadata": {
+                "points": "636.999997138977,163 664.9999966621399,163 664.9999966621399,232 692.9999961853027,232"
+            },
+            "src": {
+                "port": "file",
+                "process": "writefile2"
+            },
+            "tgt": {
+                "port": "stop",
+                "process": "graphterminator1"
+            }
+        },
+        {
+            "metadata": {
+                "points": "451.99999809265137,187 479.9999976158142,187 479.9999976158142,172 507.99999713897705,172"
+            },
+            "src": {
+                "port": "file",
+                "process": "tofile2"
+            },
+            "tgt": {
+                "port": "file",
+                "process": "writefile2"
+            }
+        },
+        {
+            "metadata": {
+                "points": "451.99999809265137,277 479.9999976158142,277 479.9999976158142,292 507.99999713897705,292"
+            },
+            "src": {
+                "port": "file",
+                "process": "tofile3"
+            },
+            "tgt": {
+                "port": "file",
+                "process": "writefile3"
+            }
+        },
+        {
+            "metadata": {
+                "points": "451.99999809265137,367 479.9999976158142,367 479.9999976158142,412 507.99999713897705,412"
+            },
+            "src": {
+                "port": "file",
+                "process": "tofile4"
+            },
+            "tgt": {
+                "port": "file",
+                "process": "writefile4"
+            }
+        },
+        {
+            "metadata": {
+                "points": "136,277 164,277 164,283 191.99999904632568,283"
+            },
+            "src": {
+                "port": "outMessageData",
+                "process": "abapodpreader1"
+            },
+            "tgt": {
+                "port": "inSourceData",
+                "process": "csvparquetgenerator1"
+            }
+        },
+        {
+            "metadata": {
+                "points": "136,172 163.99999952316284,172 163.99999952316284,162 191.99999904632568,162"
+            },
+            "src": {
+                "port": "file",
+                "process": "tofile5"
+            },
+            "tgt": {
+                "port": "file",
+                "process": "writefile5"
+            }
+        },
+        {
+            "metadata": {
+                "points": "320.9999990463257,310 348.9999985694885,310 348.9999985694885,376 392.99999809265137,376"
+            },
+            "src": {
+                "port": "outParquet",
+                "process": "csvparquetgenerator1"
+            },
+            "tgt": {
+                "port": "in",
+                "process": "tofile4"
+            }
+        },
+        {
+            "metadata": {
+                "points": "320.9999990463257,274 364.9999985694885,274 364.9999985694885,178 392.99999809265137,178"
+            },
+            "src": {
+                "port": "outlastBatch",
+                "process": "csvparquetgenerator1"
+            },
+            "tgt": {
+                "port": "path",
+                "process": "tofile2"
+            }
+        },
+        {
+            "metadata": {
+                "points": "320.9999990463257,256 348.9999985694885,256 348.9999985694885,106 392.99999809265137,106"
+            },
+            "src": {
+                "port": "outCSV",
+                "process": "csvparquetgenerator1"
+            },
+            "tgt": {
+                "port": "in",
+                "process": "tofile1"
+            }
+        },
+        {
+            "metadata": {
+                "points": "320.9999990463257,292 348.9999985694885,292 348.9999985694885,286 392.99999809265137,286"
+            },
+            "src": {
+                "port": "outManifest",
+                "process": "csvparquetgenerator1"
+            },
+            "tgt": {
+                "port": "in",
+                "process": "tofile3"
+            }
+        }
+    ],
+    "inports": {},
+    "outports": {},
+    "metadata": {
+        "generation": 1
+    }
+}
