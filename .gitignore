@@ -1,5 +1,8 @@
-Atlas/**
-POC/**
-ROCANCEL/**
-TEMP/**
-com/**
+__init__.py
+# dockerfiles/
+general/**
+# graphs/
+operators/**
+subdevkits/**
+# subengines/
+vtypes/**
