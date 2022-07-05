@@ -52,7 +52,7 @@ jobs:
 
       - name: Defining the target directory for solution
         run: |
-          echo "target_dir=$(echo  ${{ matrix.value }} | sed "s/graph.json/content\/files\/vflow\/graphs\/Test\/${{env.obj_name}}/g")" >> $GITHUB_ENV
+          echo "target_dir=$(echo  ${{ matrix.value }} | sed "s/graph.json/${{ env.obj_name }}\/content\/files\/vflow\/${{ matrix.value }}/g")" >> $GITHUB_ENV
         shell: bash
 
       - name: Building the solution directory structure 
@@ -66,6 +66,7 @@ jobs:
             mkdir -p ${{env.target_dir}}
             mv -f ./${{ matrix.value }} ./${{env.target_dir}}
           fi
+          rsync --help
         shell: bash
    
       - name: Bundle the solution into zip file in current working directory
