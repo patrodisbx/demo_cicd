@@ -50,24 +50,20 @@ jobs:
       - name: Log-in to DI through vctl
         run: vctl\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
 
+      - name: Finding the Source directory
+        run: |
+          echo "source_dir=$(echo ${{ matrix.value }} | sed "s/\/graph.json//g)" >> $GITHUB_ENV
+        shell: bash
+                
       - name: Defining the target directory for solution
         run: |
-          echo "target_dir=$(echo  ${{ matrix.value }} | sed "s/graph.json/${{ env.obj_name }}\/content\/files\/vflow\/${{ matrix.value }}/g")" >> $GITHUB_ENV
-          rsync --help
+          echo "target_dir=$(echo "${{ env.obj_name }}/content/files/vflow/${{env.source_dir}})" >> $GITHUB_ENV
+#          echo "target_dir=$(echo  ${{ matrix.value }} | sed "s/graph.json/${{ env.obj_name }}\/content\/files\/vflow\/${{ matrix.value }}/g")" >> $GITHUB_ENV
         shell: bash
 
       - name: Building the solution directory structure 
         run: | 
-          result=$(find ${{env.obj_name}} -type d -name launchConfigs)
-          if [[ -n $result ]]; then
-            mkdir -p ${{env.target_dir}}/launchConfigs
-            mv -f ./${{ matrix.value }} ./${{env.target_dir}}
-            mv -f ./${{ env.obj_name }}/launchConfigs/* ./${{env.target_dir}}/launchConfigs
-          else 
-            mkdir -p ${{env.target_dir}}
-            mv -f ./${{ matrix.value }} ./${{env.target_dir}}
-          fi
-          rsync --help
+          cp -R ./${{env.source_dir}}/* ./${{env.target_dir}}/
         shell: bash
    
       - name: Bundle the solution into zip file in current working directory
