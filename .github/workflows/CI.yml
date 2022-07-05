@@ -63,7 +63,7 @@ jobs:
 
       - name: Building the solution directory structure 
         run: | 
-          cp -R ./${{env.source_dir}}/* ./${{env.target_dir}}
+          cp -R ${{env.source_dir}} ${{env.target_dir}}
         shell: bash
    
       - name: Bundle the solution into zip file in current working directory
