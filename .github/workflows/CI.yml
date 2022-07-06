@@ -47,8 +47,8 @@ jobs:
         run: echo "obj_name=$(echo ${{ matrix.value }} | cut -d "/" -f 2)" >> $GITHUB_ENV
         shell: bash
   
-      # - name: Log-in to DI through vctl
-      #   run: vctl\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
+      - name: Log-in to DI through vctl
+        run: vctl\vctl.exe login https://vsystem.ingress.dh-ifc1k6ng.di-us-east.shoot.live.k8s-hana.ondemand.com disbxt01 ${{secrets.USER_NAME}} -p ${{secrets.PASSWORD}}
 
       - name: Finding the Source directory
         run: |
