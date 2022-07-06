@@ -52,7 +52,7 @@ jobs:
 
       - name: Finding the Source directory
         run: |
-          echo "source_dir=$(echo ${{matrix.value}} | rev | cut -d "/" -f 2- | rev)" >> $GITHUB_ENV
+          echo "source_dir=$(echo ${{matrix.value}} | awk 'BEGIN{FS=OFS="/"}NF--')" >> $GITHUB_ENV
 #          echo "source_dir=$(echo ${{matrix.value}} | sed "s/\/graph.json//g")" >> $GITHUB_ENV
         shell: bash
                 
