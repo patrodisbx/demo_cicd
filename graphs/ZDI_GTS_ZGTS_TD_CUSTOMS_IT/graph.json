@@ -1,6 +1,6 @@
 {
     "properties": {},
-    "description": "ZDI_GTS_ZGTS_TD_CUSTOMS_IT4",
+    "description": "ZDI_GTS_ZGTS_TD_CUSTOMS_IT",
     "processes": {
         "writefile1": {
             "component": "com.sap.file.write",
