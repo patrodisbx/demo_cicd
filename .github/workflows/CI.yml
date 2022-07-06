@@ -65,6 +65,7 @@ jobs:
         run: | 
           mkdir -p ${{env.target_dir}}
           cp -R ${{env.source_dir}} ${{env.target_dir}}
+          cp -R ${{env.source_dir}}/manifest.json ${{ env.obj_name }}/
           ls -al
         shell: bash
    
