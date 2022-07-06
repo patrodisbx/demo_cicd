@@ -52,13 +52,13 @@ jobs:
 
       - name: Finding the Source directory
         run: |
-          echo "source_dir=$(echo ${{matrix.value}} | cut -d "/" -f -1)" >> $GITHUB_ENV
+          echo "source_dir=$(echo ${{matrix.value}} | rev | cut -d "/" -f 2- | rev)" >> $GITHUB_ENV
 #          echo "source_dir=$(echo ${{matrix.value}} | sed "s/\/graph.json//g")" >> $GITHUB_ENV
         shell: bash
                 
       - name: Defining the target directory for solution
         run: |
-          echo "target_dir=$(echo ${{ env.obj_name }}/content/files/vflow/${{env.source_dir}})" >> $GITHUB_ENV
+          echo "target_dir=$(echo ${{ env.obj_name }}/content/files/vflow/Test/${{env.source_dir}})" >> $GITHUB_ENV
 #          echo "target_dir=$(echo  ${{ matrix.value }} | sed "s/graph.json/${{ env.obj_name }}\/content\/files\/vflow\/${{ matrix.value }}/g")" >> $GITHUB_ENV
         shell: bash
 
